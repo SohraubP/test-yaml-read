@@ -6,31 +6,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    outputs:
-      test: ${{ steps.reads.outputs.test }}
+  read_yaml:
     runs-on: ubuntu-latest
+    outputs:
+      data: steps.parser.outputs.data
     steps:
       - uses: actions/checkout@v3
-      - name: Read file and prepare outputs
-        id: reads
+      - name: Parse YAML
+        id: parser
+        shell: python
         run: |
-          while IFS= read -r line; do
-            key=$(echo $line | cut -d':' -f1 | xargs);
-            value=$(echo $line | cut -d':' -f2 | xargs);
-            echo "${key}=${value}" >> $GITHUB_OUTPUT;
-            echo "${key}=${value}" >> $GITHUB_ENV;
-            echo "${key}=${value}";
-          done < config_test.yml;
-          echo $GITHUB_OUTPUT;
-      - name: Validate
-        run: |
-          echo ${{ env.version }}
+          import yaml
+
+          with open('config_test.yml', 'r') as f:
+            config_file = yaml.safe_load(f)
+
+          value = config_file.get('version', '')
+          print(f"data=${value} >> $GITHUB_OUTPUT")
+
   validate:
+    needs: read_yaml
     runs-on: ubuntu-latest
-    needs: build
     steps:
-      - name: Check env
-        run: echo ${{ env.test }}
-      - name: Check output
-        run: echo ${{ needs.build.outputs.test }} 
+      - name: Check
+        run: echo ${{ needs.read_yaml.outputs.data }} 
+          
+
+
