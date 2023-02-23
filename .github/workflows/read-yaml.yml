@@ -23,7 +23,7 @@ jobs:
             config_file = yaml.safe_load(f)
 
           outputs = dict()
-          outputs['data'] = config_file.get('version', '')
+          outputs['data'] = str(config_file)
 
           if "GITHUB_OUTPUT" in os.environ:
             with open(os.environ["GITHUB_OUTPUT"], "a") as f:
