@@ -18,12 +18,8 @@ jobs:
             value=$(echo $line | cut -d':' -f2 | xargs);
             echo "${key}=${value}" >> "$GITHUB_OUTPUT";
           done < config_test.yml
-
-  validate:
-    runs-on: ubuntu-latest 
-    needs: build
-    steps:
-      - name: Check outputs
+      - name: Validate
         run: |
-          echo ${{ needs.build.outputs.test }}
-          echo ${{ needs.build.outputs.version }}
+          echo "steps.reads.output.test";
+          echo "steps.reads.output.version"
+
