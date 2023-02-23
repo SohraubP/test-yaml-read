@@ -7,6 +7,8 @@ on:
 
 jobs:
   build:
+    outputs:
+      test: ${{ steps.reads.outputs.test }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -26,6 +28,9 @@ jobs:
           echo ${{ env.version }}
   validate:
     runs-on: ubuntu-latest
+    needs: build
     steps:
-      - name: Check
+      - name: Check env
         run: echo ${{ env.test }}
+      - name: Check output
+        run: echo ${{ needs.build.outputs.test }} 
