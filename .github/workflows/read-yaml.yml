@@ -9,7 +9,7 @@ jobs:
   read_yaml:
     runs-on: ubuntu-latest
     outputs:
-      data: steps.parser.outputs.data
+      data: ${{ steps.parser.outputs.data }}
     steps:
       - uses: actions/checkout@v3
       - name: Parse YAML
