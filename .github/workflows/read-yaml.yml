@@ -1,9 +1,14 @@
 name: Read YAML
 
 on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      filepath:
+        required: true
+        type: string
+    outputs:
+      data:
+        value: ${{ jobs.read_yaml.outputs.data }}
 
 jobs:
   read_yaml:
@@ -11,7 +16,6 @@ jobs:
     outputs:
       data: ${{ steps.parser.outputs.data }}
     steps:
-      - uses: actions/checkout@v3
       - name: Parse YAML
         id: parser
         shell: python
@@ -19,7 +23,7 @@ jobs:
           import yaml
           import os
 
-          with open('config_test.yml', 'r') as f:
+          with open(${{ inputs.filepath }}, 'r') as f:
             config_file = yaml.safe_load(f)
 
           outputs = dict()
