@@ -24,3 +24,8 @@ jobs:
       - name: Validate
         run: |
           echo ${{ env.version }}
+  validate:
+    runs-on: ubuntu-latest
+      steps:
+        - name: Check
+          run: echo ${{ env.test }}
