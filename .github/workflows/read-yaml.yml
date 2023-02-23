@@ -11,11 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Read file and prepare outputs
+        id: reads
         run: |
           while IFS= read -r line; do
             key=$(echo $line | cut -d':' -f1 | xargs);
             value=$(echo $line | cutd -d':' -f2 | xargs);
-            echo "::set-output name=${key}::${value}"
+            echo "${key}=${value}" >> $GITHUB_OUTPUT;
           done < config_test.yml
 
   validate:
