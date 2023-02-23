@@ -22,6 +22,5 @@ jobs:
           echo $GITHUB_OUTPUT;
       - name: Validate
         run: |
-          echo ${{ steps.reads.output.test }};
-          echo ${{ steps.reads.output.version }}
+          echo ${{ steps.reads.output.* }};
 
