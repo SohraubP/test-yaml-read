@@ -18,7 +18,8 @@ jobs:
             value=$(echo $line | cut -d':' -f2 | xargs);
             echo "${key}=${value}" >> $GITHUB_OUTPUT;
             echo "${key}=${value}";
-          done < config_test.yml
+          done < config_test.yml;
+          echo $GITHUB_OUTPUT;
       - name: Validate
         run: |
           echo ${{ steps.reads.output.test }};
