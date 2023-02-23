@@ -1,0 +1,28 @@
+name: Read YAML
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Read file and prepare outputs
+        id: read_step
+        run: |
+          while IFS= read -r line; do
+            key=$(echo $line | cut -d':' -f1 | xargs);
+            value=${echo $line | cutd -d':' -f2 | xargs);
+            echo "::set-output name=${key}::${value}"
+          done < config-test.yml
+          
+      - name: Check outputs
+        needs: read_step
+        run: |
+          echo ${{ needs.read_step.outputs.test }}
+          echo ${{ needs.read_step.outputs.version }}
