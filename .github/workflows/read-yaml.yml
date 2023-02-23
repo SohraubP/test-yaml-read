@@ -20,6 +20,6 @@ jobs:
           done < config_test.yml
       - name: Validate
         run: |
-          echo "steps.reads.output.test";
-          echo "steps.reads.output.version"
+          echo ${{ steps.reads.output.test }};
+          echo ${{ steps.reads.output.version }}
 
