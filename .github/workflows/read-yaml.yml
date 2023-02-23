@@ -15,8 +15,8 @@ jobs:
         run: |
           while IFS= read -r line; do
             key=$(echo $line | cut -d':' -f1 | xargs);
-            value=$(echo $line | cutd -d':' -f2 | xargs);
-            echo "${key}=${value}" >> $GITHUB_OUTPUT;
+            value=$(echo $line | cut -d':' -f2 | xargs);
+            echo "${key}=${value}" >> "$GITHUB_OUTPUT";
           done < config_test.yml
 
   validate:
