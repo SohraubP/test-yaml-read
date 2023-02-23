@@ -17,10 +17,10 @@ jobs:
             key=$(echo $line | cut -d':' -f1 | xargs);
             value=$(echo $line | cut -d':' -f2 | xargs);
             echo "${key}=${value}" >> $GITHUB_OUTPUT;
+            echo "${key}=${value}" >> $GITHUB_ENV;
             echo "${key}=${value}";
           done < config_test.yml;
           echo $GITHUB_OUTPUT;
       - name: Validate
         run: |
-          echo ${{join(steps.reads.output.*, '\n')}};
-
+          echo ${{ env.version }}
