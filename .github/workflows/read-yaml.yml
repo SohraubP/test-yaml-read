@@ -22,5 +22,5 @@ jobs:
           echo $GITHUB_OUTPUT;
       - name: Validate
         run: |
-          echo ${{ steps.reads.output.* }};
+          echo ${{join(steps.reads.output.*, '\n')}};
 
