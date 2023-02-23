@@ -16,7 +16,7 @@ jobs:
             key=$(echo $line | cut -d':' -f1 | xargs);
             value=$(echo $line | cutd -d':' -f2 | xargs);
             echo "::set-output name=${key}::${value}"
-          done < config-test.yml
+          done < config_test.yml
 
   validate:
     runs-on: ubuntu-latest 
