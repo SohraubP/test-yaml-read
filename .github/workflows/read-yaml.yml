@@ -17,12 +17,17 @@ jobs:
         shell: python
         run: |
           import yaml
+          import os
 
           with open('config_test.yml', 'r') as f:
             config_file = yaml.safe_load(f)
 
-          value = config_file.get('version', '')
-          print(f"data=${value} >> $GITHUB_OUTPUT")
+          outputs = dict()
+          outputs['data'] = config_file.get('version', '')
+
+          if "GITHUB_OUTPUT" in os.environ:
+            with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              print(f"data={outputs['data']}", file=f)
 
   validate:
     needs: read_yaml
