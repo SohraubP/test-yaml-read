@@ -2,6 +2,8 @@ name: Read YAML
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["main"]
 
 jobs:
   read_yaml:
@@ -13,7 +15,7 @@ jobs:
       - uses: SohraubP/test-yaml-read@v2
         id: yaml-data
         with:
-          filepath: ${{ env.GITHUB_WORKSPACE }}/config_test.yml
+          filepath: ${{ github.workspace }}/config_test.ymlt
       - run: echo ${{ steps.yaml-data.outputs.data }}
   validate:
     needs: read_yaml
