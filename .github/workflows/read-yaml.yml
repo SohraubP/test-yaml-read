@@ -13,7 +13,7 @@ jobs:
       - uses: SohraubP/test-yaml-read@v2
         id: yaml-data
         with:
-          filepath: ./config_test.yaml
+          filepath: ./config_test.yml
       - run: echo ${{ steps.yaml-data.outputs.data }}
   validate:
     needs: read_yaml
