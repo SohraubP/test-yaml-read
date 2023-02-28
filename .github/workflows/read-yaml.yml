@@ -13,7 +13,7 @@ jobs:
       - uses: SohraubP/test-yaml-read@v2
         id: yaml-data
         with:
-          filepath: ${{ env.GITHUB_WORKFLOW }}/config_test.yml
+          filepath: ${{ env.GITHUB_WORKSPACE }}/config_test.yml
       - run: echo ${{ steps.yaml-data.outputs.data }}
   validate:
     needs: read_yaml
