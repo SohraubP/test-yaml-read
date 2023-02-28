@@ -9,6 +9,7 @@ jobs:
     outputs:
       data: ${{ steps.yaml-data.outputs.data }}
     steps:
+      - uses: actions/checkout@v3
       - uses: SohraubP/test-yaml-read@v2
         id: yaml-data
         with:
