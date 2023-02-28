@@ -1,38 +1,19 @@
 name: Read YAML
 
 on:
-  workflow_call:
-    inputs:
-      filepath:
-        required: true
-        type: string
-    outputs:
-      data:
-        value: ${{ jobs.read_yaml.outputs.data }}
+  workflow_dispatch:
 
 jobs:
   read_yaml:
     runs-on: ubuntu-latest
     outputs:
-      data: ${{ steps.parser.outputs.data }}
+      data: ${{ steps.yaml-data.outputs.data }}
     steps:
-      - name: Parse YAML
-        id: parser
-        shell: python
-        run: |
-          import yaml
-          import os
-
-          with open(${{ inputs.filepath }}, 'r') as f:
-            config_file = yaml.safe_load(f)
-
-          outputs = dict()
-          outputs['data'] = str(config_file)
-
-          if "GITHUB_OUTPUT" in os.environ:
-            with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-              print(f"data={outputs['data']}", file=f)
-
+      - uses: SohraubP/test-yaml-read@v2
+        id: yaml-data
+        with:
+          filepath: ./config_test.yaml
+      - run: echo ${{ steps.yaml-data.outputs.data }}
   validate:
     needs: read_yaml
     runs-on: ubuntu-latest
