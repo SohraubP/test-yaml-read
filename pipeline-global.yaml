@@ -121,28 +121,3 @@ pipeline:
       recipients:
         validDomains:
           - "interac.ca"
-  status:
-    success:
-      code: "SUCCESS"
-      notification:
-        color: "00CC00"
-        message: "Pipeline completed and is SUCCESSFUL"
-        icon: "✅"
-    failure:
-      code: "FAILURE"
-      notification:
-        color: "FF0000"
-        message: "Pipeline FAILED"
-        icon: "❌"
-    unstable:
-      code: "UNSTABLE"
-      notification:
-        color: "FFCC00"
-        message: "Pipeline completed but is UNSTABLE"
-        icon: "⚠️"
-    blocked:
-      code: "BLOCKED"
-      notification:
-        color: "CC00CC"
-        message: "Pipeline is BLOCKED"
-        icon: "⛔"
