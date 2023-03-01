@@ -16,7 +16,7 @@ jobs:
         id: yaml-data
         with:
           filepath: ${{ github.workspace }}/pipeline-global.yaml
-      - run: echo ${{ steps.yaml-data.outputs.data }} | jq '.proxy.excludes | map(select(. == ".dev.interac.ca"))'
+      - run: echo '${{ steps.yaml-data.outputs.data }}' | jq '.proxy.excludes | map(select(. == ".dev.interac.ca"))'
   validate:
     needs: read_yaml
     runs-on: ubuntu-latest
